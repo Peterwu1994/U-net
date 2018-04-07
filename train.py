@@ -14,7 +14,7 @@ from Datasets.SegmentationDataset import get_dataset
 from Nets.unet import Unet
 from Preprocessing.Preprocessing import preprocess_image_and_label_Simple, Visualize_label, PRED_COLOR
 from Nets.Config import Config
-
+from losses import weighted_softmax_loss, dice_loss
 slim = tf.contrib.slim
 
 
@@ -43,7 +43,7 @@ tf.app.flags.DEFINE_string(
     'Specifies how the learning rate is decayed. One of "fixed", "exponential",'
     ' or "polynomial"')
 
-tf.app.flags.DEFINE_float('learning_rate', 0.01, 'Initial learning rate.')
+tf.app.flags.DEFINE_float('learning_rate', 0.001, 'Initial learning rate.')
 
 tf.app.flags.DEFINE_float(
     'end_learning_rate', 0.0001,
@@ -341,30 +341,19 @@ def main(_):
             batch_queue = slim.prefetch_queue.prefetch_queue(
                 [images, labels], capacity=2 * 1)
 
-        def weighted_softmax_loss(logits, labels, weight_ratio=400):
-            """
 
-            :param logits:
-            :param labels: one-hot labels
-            :param weight_ratio:
-            :return:
-            """
-            logits = tf.reshape(logits, shape=[-1, logits.get_shape()[-1]])
-            labels = tf.reshape(labels, shape=[-1, labels.get_shape()[-1]])
-            class_weights = tf.constant([float(1) / float(1 + weight_ratio),
-                                         float(weight_ratio) / float(weight_ratio + 1)])
-            weights = tf.reduce_sum(class_weights * labels, axis=1)
-            loss = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=logits)
-            return tf.reduce_mean(loss * weights)
 
         def clone_fn(batch_queue):
             network_config = Config(weight_decay=FLAGS.weight_decay)
             images, labels = batch_queue.dequeue()
-            labels = slim.one_hot_encoding(labels, 2)
+
             logits, endpoints = network_fn(images, network_config)
             # loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels=labels, logits=logits, name='loss'))
             loss = weighted_softmax_loss(logits, labels)
+            # loss = dice_loss(logits, labels)
             slim.losses.add_loss(loss)
+            endpoints['images'] = images
+            endpoints['labels'] = labels
             return endpoints
 
         # Gather initial summaries.
@@ -380,9 +369,12 @@ def main(_):
 
         end_points = clones[0].outputs
         pred = tf.argmax(end_points['logits'], axis=-1)
-        pred = tf.expand_dims(pred[0], -1)
-        label_visualize = tf.expand_dims(tf.cast(pred, tf.uint8) * 255, 0)
+        pred = tf.expand_dims(pred, -1)
+        label_visualize = tf.cast(pred, tf.uint8) * 255
         tf.summary.image('pred', label_visualize)
+        tf.summary.image('images', end_points['images'])
+        label_visualize = tf.cast(end_points['labels'], tf.uint8) * 255
+        tf.summary.image('labels', label_visualize)
 
         #################################
         # Configure the moving averages #

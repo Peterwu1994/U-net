@@ -8,5 +8,6 @@
 # @profile :
 
 class Config():
-    def __init__(self, weight_decay=0.0004):
+    def __init__(self, weight_decay=0.0004, is_training=True):
         self.weight_decay = weight_decay
+        self.is_training = is_training

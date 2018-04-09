@@ -8,32 +8,34 @@
 # @profile :
 import tensorflow as tf
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "2"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 from Datasets.SegmentationDataset import get_dataset
 from Nets.unet import Unet
+from Nets.mobilenet import MobileNetSegAtrous, MobileNetSeg
 from Preprocessing.Preprocessing import preprocess_image_and_label_Simple, Visualize_label, PRED_COLOR
 from Nets.Config import Config
 from losses import weighted_softmax_loss, dice_loss
 import math
 slim = tf.contrib.slim
 
-ckpt_dir = '/raid/wuyudong/Models/DeeplabGuidewire/test'
-eval_dir = '/raid/wuyudong/Models/DeeplabGuidewire/test_eval'
+ckpt_dir = '/raid/wuyudong/Models/DeeplabGuidewire/Mobilenet/Train/Stride16'
+eval_dir = '/raid/wuyudong/Models/DeeplabGuidewire/Mobilenet/Eval/Stride16'
 dataset_dir = '/home/wuyudong/Project/ImageData/GuideWire/Image/Test.tfrecord'
 
-batch_size = 16
+batch_size = 4
 eval_image_size = 512
 num_samples = 360
+max_stride = 16
 
-
+network_fn = MobileNetSeg
+preprocess_fn = preprocess_image_and_label_Simple
 
 def main(_):
     tf.logging.set_verbosity(tf.logging.INFO)
     with tf.Graph().as_default():
         tf_global_step = slim.get_or_create_global_step()
         dataset = get_dataset(dataset_name='guidewire', split_name='val', dataset_dir=dataset_dir)
-        network_fn = Unet
-        preprocess_fn = preprocess_image_and_label_Simple
+
         provider = slim.dataset_data_provider.DatasetDataProvider(
             dataset,
             shuffle=False,
@@ -49,7 +51,7 @@ def main(_):
         batch_queue = slim.prefetch_queue.prefetch_queue(
             [images, labels], capacity=2 * 1)
         images, labels = batch_queue.dequeue()
-        network_config = Config(is_training=False)
+        network_config = Config(is_training=False, max_stride=max_stride)
         logits, endpoints = network_fn(images, network_config)
         variables_to_restore = slim.get_variables_to_restore()
 

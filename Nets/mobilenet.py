@@ -14,6 +14,57 @@ slim = tf.contrib.slim
 
 Conv = namedtuple('Conv', ['kernel', 'stride', 'depth'])
 DepthSepConv = namedtuple('DepthSepConv', ['kernel', 'stride', 'depth'])
+TranseConv = namedtuple('TranseConv', ['kernel', 'stride', 'depth'])
+Concat = namedtuple('Concat', ['src'])
+
+_DECODER = [
+    [TranseConv(kernel=[3, 3], stride=2, depth=512),
+     Concat(src='Conv2d_11_pointwise'),
+     Conv(kernel=[3, 3], stride=1, depth=512)],
+
+    [TranseConv(kernel=[3, 3], stride=2, depth=256),
+     Concat(src='Conv2d_5_pointwise'),
+     Conv(kernel=[3, 3], stride=1, depth=256)],
+
+    [TranseConv(kernel=[3, 3], stride=2, depth=128),
+     Concat(src='Conv2d_3_pointwise'),
+     Conv(kernel=[3, 3], stride=1, depth=128)],
+
+    [TranseConv(kernel=[3, 3], stride=2, depth=64),
+     Concat(src='Conv2d_1_pointwise'),
+     Conv(kernel=[3, 3], stride=1, depth=64)],
+
+    [TranseConv(kernel=[3, 3], stride=2, depth=32),
+     Concat(src='Conv2d_Aux'),
+     Conv(kernel=[3, 3], stride=1, depth=32)],
+
+]
+
+
+# _DECODER_FOR_ATROUS = [
+#     [TranseConv(kernel=[3, 3], stride=2, depth=128),
+#      Concat(src='Conv2d_3_pointwise'),
+#      Conv(kernel=[3, 3], stride=1, depth=128)],
+#
+#     [TranseConv(kernel=[3, 3], stride=2, depth=64),
+#      Concat(src='Conv2d_1_pointwise'),
+#      Conv(kernel=[3, 3], stride=1, depth=64)],
+#
+#     [TranseConv(kernel=[3, 3], stride=2, depth=32),
+#      Concat(src='Conv2d_Aux'),
+#      Conv(kernel=[3, 3], stride=1, depth=32)],
+#
+# ]
+
+
+_OutputStride2DecoderBeg = {32: 0,
+                            16: 1,
+                            8: 2,}
+
+_OutputStride2Endpoint = {32: 'Conv2d_13_pointwise',
+                          16: 'Conv2d_11_pointwise',
+                          8: 'Conv2d_5_pointwise',}
+
 _CONV_DEFS = [
     Conv(kernel=[3, 3], stride=2, depth=32),
     DepthSepConv(kernel=[3, 3], stride=1, depth=64),
@@ -199,21 +250,183 @@ def mobilenet_v1_arg_scope(is_training=True,
                     return sc
 
 
+# def MobileNetSeg32(inputs, config):
+#     argsc = mobilenet_v1_arg_scope(is_training=config.is_training, weight_decay=config.weight_decay)
+#     with slim.arg_scope(argsc):
+#         input_shape = inputs.get_shape().as_list()
+#         if len(input_shape) != 4:
+#             raise ValueError('Invalid input tensor rank, expected 4, was: %d' % len(input_shape))
+#
+#         with tf.variable_scope('MobilenetV1', 'MobilenetV1', [inputs], reuse=False) as scope:
+#             # encoder
+#             with slim.arg_scope([slim.batch_norm, slim.dropout], is_training=config.is_training):
+#                 net, end_points = mobilenet_v1_base(inputs, scope='MobilenetV1')
+#                 conv_aux = slim.conv2d(inputs, 32, [3, 3], stride=1, scope='Conv2d_Aux')
+#                 end_points['Conv2d_Aux'] = conv_aux
+#             # decoder
+#             with slim.arg_scope([slim.conv2d_transpose, slim.conv2d], activation_fn=tf.nn.relu,
+#                             weights_regularizer=slim.l2_regularizer(config.weight_decay),
+#                             biases_initializer=tf.zeros_initializer(),
+#                             padding='SAME',):
+#                 for i, conv_unit in enumerate(_DECODER):
+#                     for conv_def in conv_unit:
+#                         if isinstance(conv_def, TranseConv):
+#                             net = slim.conv2d_transpose(net, conv_def.depth, conv_def.kernel, stride=conv_def.stride,
+#                                                         normalizer_fn=slim.batch_norm, scope='Deconv%d'%i)
+#                             end_points['Deconv%d' % i] = net
+#
+#                         elif isinstance(conv_def, Concat):
+#                             net = tf.concat([net, end_points[conv_def.src]], axis=3)
+#                         elif isinstance(conv_def, Conv):
+#                             net = slim.conv2d(net, conv_def.depth, conv_def.kernel, stride=conv_def.stride,
+#                                               normalizer_fn=slim.batch_norm, scope='Conv%d'%(i+14))
+#                         else:
+#                             raise Exception('not recongize conv_def')
+#
+#                 logits = slim.conv2d(net, 2, [3, 3], stride=1, normalizer_fn=None, scope='Logits')
+#                 end_points['Logits'] = logits
+#                 return logits, end_points
+#
+#
+# def MobileNetSeg16(inputs, config):
+#     argsc = mobilenet_v1_arg_scope(is_training=config.is_training, weight_decay=config.weight_decay)
+#     with slim.arg_scope(argsc):
+#         input_shape = inputs.get_shape().as_list()
+#         if len(input_shape) != 4:
+#             raise ValueError('Invalid input tensor rank, expected 4, was: %d' % len(input_shape))
+#
+#         with tf.variable_scope('MobilenetV1', 'MobilenetV1', [inputs], reuse=False) as scope:
+#             # encoder
+#             with slim.arg_scope([slim.batch_norm, slim.dropout], is_training=config.is_training):
+#                 net, end_points = mobilenet_v1_base(inputs, final_endpoint='Conv2d_11_pointwise', scope='MobilenetV1')
+#                 conv_aux = slim.conv2d(inputs, 32, [3, 3], stride=1, scope='Conv2d_Aux')
+#                 end_points['Conv2d_Aux'] = conv_aux
+#             # decoder
+#             with slim.arg_scope([slim.conv2d_transpose, slim.conv2d], activation_fn=tf.nn.relu,
+#                             weights_regularizer=slim.l2_regularizer(config.weight_decay),
+#                             biases_initializer=tf.zeros_initializer(),
+#                             padding='SAME',):
+#                 decoder = _DECODER[1:]
+#                 for i, conv_unit in enumerate(decoder):
+#                     for conv_def in conv_unit:
+#                         if isinstance(conv_def, TranseConv):
+#                             net = slim.conv2d_transpose(net, conv_def.depth, conv_def.kernel, stride=conv_def.stride,
+#                                                         normalizer_fn=slim.batch_norm, scope='Deconv%d'%i)
+#                             end_points['Deconv%d' % i] = net
+#
+#                         elif isinstance(conv_def, Concat):
+#                             net = tf.concat([net, end_points[conv_def.src]], axis=3)
+#                         elif isinstance(conv_def, Conv):
+#                             net = slim.conv2d(net, conv_def.depth, conv_def.kernel, stride=conv_def.stride,
+#                                               normalizer_fn=slim.batch_norm, scope='Conv%d'%(i+14))
+#                         else:
+#                             raise Exception('not recongize conv_def')
+#
+#                 logits = slim.conv2d(net, 2, [3, 3], stride=1, normalizer_fn=None, scope='Logits')
+#                 end_points['Logits'] = logits
+#                 return logits, end_points
+
+
 def MobileNetSeg(inputs, config):
+    """
+
+    :param inputs:
+    :param config: max_stride need to be set: typical values [32, 16, 8, 4]
+    :return:
+    """
+    print(config.max_stride)
     argsc = mobilenet_v1_arg_scope(is_training=config.is_training, weight_decay=config.weight_decay)
     with slim.arg_scope(argsc):
         input_shape = inputs.get_shape().as_list()
         if len(input_shape) != 4:
             raise ValueError('Invalid input tensor rank, expected 4, was: %d' % len(input_shape))
 
-        with tf.variable_scope('MobilenetV1', 'MobilenetV1', [inputs], reuse=False) as scope:
-            with slim.arg_scope([slim.batch_norm, slim.dropout], is_training=config.is_training):
-                net, end_points = mobilenet_v1_base(inputs, scope='MobilenetV1')
-                pass
+        if config.max_stride not in _OutputStride2Endpoint.keys():
+            raise ValueError('Invalid max_stride %d not in [32, 16, 8]' % config.max_stride)
 
+        with tf.variable_scope('MobilenetV1', 'MobilenetV1', [inputs], reuse=False) as scope:
+            # encoder
+            with slim.arg_scope([slim.batch_norm, slim.dropout], is_training=config.is_training):
+                net, end_points = mobilenet_v1_base(inputs, final_endpoint=_OutputStride2Endpoint[config.max_stride],
+                                                    scope=scope)
+                conv_aux = slim.conv2d(inputs, 32, [3, 3], stride=1, scope='Conv2d_Aux')
+                end_points['Conv2d_Aux'] = conv_aux
+                if config.max_stride == 4:
+                    net = slim.repeat(net, 4, slim.conv2d, 128, [3, 3], scope='conv_repeat')
+                elif config.max_stride == 8:
+                    net = slim.repeat(net, 4, slim.conv2d, 256, [3, 3], scope='conv_repeat')
+            # decoder
+            with slim.arg_scope([slim.conv2d_transpose, slim.conv2d], activation_fn=tf.nn.relu,
+                            weights_regularizer=slim.l2_regularizer(config.weight_decay),
+                            biases_initializer=tf.zeros_initializer(), normalizer_fn=slim.batch_norm,
+                            padding='SAME',):
+                beg = _OutputStride2DecoderBeg[config.max_stride]
+                decoder = _DECODER[beg:]
+                for i, conv_unit in enumerate(decoder):
+                    for conv_def in conv_unit:
+                        if isinstance(conv_def, TranseConv):
+                            net = slim.conv2d_transpose(net, conv_def.depth, conv_def.kernel, stride=conv_def.stride,
+                                                        scope='Deconv%d'%i)
+                            end_points['Deconv%d' % i] = net
+
+                        elif isinstance(conv_def, Concat):
+                            net = tf.concat([net, end_points[conv_def.src]], axis=3)
+                        elif isinstance(conv_def, Conv):
+                            net = slim.conv2d(net, conv_def.depth, conv_def.kernel, stride=conv_def.stride,
+                                              scope='Conv%d'%(i+14))
+                        else:
+                            raise Exception('not recongize conv_def')
+
+                logits = slim.conv2d(net, 2, [3, 3], stride=1, normalizer_fn=None, scope='logits')
+                end_points['logits'] = logits
+                return logits, end_points
+
+
+def MobileNetSegAtrous(inputs, config):
+    argsc = mobilenet_v1_arg_scope(is_training=config.is_training, weight_decay=config.weight_decay)
+    with slim.arg_scope(argsc):
+        input_shape = inputs.get_shape().as_list()
+        if len(input_shape) != 4:
+            raise ValueError('Invalid input tensor rank, expected 4, was: %d' % len(input_shape))
+
+        if config.max_stride not in _OutputStride2Endpoint.keys():
+            raise ValueError('Invalid max_stride %d not in [32, 16, 8, 4]' % config.max_stride)
+
+        with tf.variable_scope('MobilenetV1', 'MobilenetV1', [inputs], reuse=False) as scope:
+            # encoder
+            with slim.arg_scope([slim.batch_norm, slim.dropout], is_training=config.is_training):
+                net, end_points = mobilenet_v1_base(inputs, final_endpoint='Conv2d_13_pointwise',
+                                                    scope=scope, output_stride=config.max_stride)
+                conv_aux = slim.conv2d(inputs, 32, [3, 3], stride=1, scope='Conv2d_Aux')
+                end_points['Conv2d_Aux'] = conv_aux
+            # decoder
+            with slim.arg_scope([slim.conv2d_transpose, slim.conv2d], activation_fn=tf.nn.relu,
+                                weights_regularizer=slim.l2_regularizer(config.weight_decay),
+                                biases_initializer=tf.zeros_initializer(), normalizer_fn=slim.batch_norm,
+                                padding='SAME', ):
+                beg = _OutputStride2DecoderBeg[config.max_stride]
+                decoder = _DECODER[beg:]
+                for i, conv_unit in enumerate(decoder):
+                    for conv_def in conv_unit:
+                        if isinstance(conv_def, TranseConv):
+                            net = slim.conv2d_transpose(net, conv_def.depth, conv_def.kernel, stride=conv_def.stride,
+                                                        scope='Deconv%d'%i)
+                            end_points['Deconv%d' % i] = net
+
+                        elif isinstance(conv_def, Concat):
+                            net = tf.concat([net, end_points[conv_def.src]], axis=3)
+                        elif isinstance(conv_def, Conv):
+                            net = slim.conv2d(net, conv_def.depth, conv_def.kernel, stride=conv_def.stride,
+                                              scope='Conv%d'%(i+14))
+                        else:
+                            raise Exception('not recongize conv_def')
+
+                logits = slim.conv2d(net, 2, [3, 3], stride=1, normalizer_fn=None, scope='logits')
+                end_points['logits'] = logits
+                return logits, end_points
 
 
 if __name__ == '__main__':
-    config = Config()
+    config = Config(max_stride=4)
     input = tf.ones(shape=(1, 512, 512, 3), dtype=tf.float32)
-    MobileNetSeg(input, config)
+    MobileNetSegAtrous(input, config)

@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="344413db-24f3-45cc-8ad0-cb33cb0f10f0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nets/mobilenet.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Nets/mobilenet_v1.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/eval.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/losses.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Inference.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Metric.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/prepare_data.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train_mobile.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Nets/Config.py" afterPath="$PROJECT_DIR$/Nets/Config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train.py" afterPath="$PROJECT_DIR$/train.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Nets/mobilenet.py" afterPath="$PROJECT_DIR$/Nets/mobilenet.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Preprocessing/Preprocessing.py" afterPath="$PROJECT_DIR$/Preprocessing/Preprocessing.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eval.py" afterPath="$PROJECT_DIR$/eval.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,20 +20,22 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Unet$train.coverage" NAME="train Coverage Results" MODIFIED="1523023926695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Unet$mobilenet.coverage" NAME="mobilenet Coverage Results" MODIFIED="1522805189579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Nets" />
-    <SUITE FILE_PATH="coverage/Unet$eval.coverage" NAME="eval Coverage Results" MODIFIED="1523116398841" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Unet$train.coverage" NAME="train Coverage Results" MODIFIED="1523191162952" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Unet$mobilenet.coverage" NAME="mobilenet Coverage Results" MODIFIED="1523194898045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Nets" />
+    <SUITE FILE_PATH="coverage/Unet$eval.coverage" NAME="eval Coverage Results" MODIFIED="1523244603075" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Unet$train_mobile.coverage" NAME="train_mobile Coverage Results" MODIFIED="1523273758711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Unet$Inference.coverage" NAME="Inference Coverage Results" MODIFIED="1523273474573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Unet$unet.coverage" NAME="unet Coverage Results" MODIFIED="1522741291220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Nets" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.65208113">
+    <splitter split-orientation="horizontal" split-proportion="0.6419424">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="SegmentationDataset.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Datasets/SegmentationDataset.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="144">
-                  <caret line="81" column="12" lean-forward="false" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="12" />
+                <state relative-caret-position="266">
+                  <caret line="150" column="19" lean-forward="false" selection-start-line="150" selection-start-column="9" selection-end-line="150" selection-end-column="19" />
                   <folding>
                     <element signature="e#2031#2049#0" expanded="true" />
                   </folding>
@@ -40,15 +43,54 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Preprocessing.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Preprocessing/Preprocessing.py">
+          <file leaf-file-name="Inference.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Inference.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="160">
-                  <caret line="62" column="34" lean-forward="false" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
+                <state relative-caret-position="-1092">
+                  <caret line="10" column="39" lean-forward="false" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
                   <folding>
-                    <element signature="e#175#198#0" expanded="true" />
-                    <element signature="e#2864#4299#0" expanded="false" />
-                    <element signature="e#2864#3724#1" expanded="false" />
+                    <element signature="e#172#195#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Metric.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Metric.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="506">
+                  <caret line="85" column="21" lean-forward="true" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
+                  <folding>
+                    <element signature="e#168#186#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="mobilenet.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Nets/mobilenet.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="415">
+                  <caret line="344" column="69" lean-forward="false" selection-start-line="344" selection-start-column="69" selection-end-line="344" selection-end-column="69" />
+                  <folding>
+                    <element signature="e#171#194#0" expanded="true" />
+                    <element signature="e#9099#9525#1" expanded="false" />
+                    <element signature="e#10544#10581#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="train_mobile.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/train_mobile.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="240">
+                  <caret line="27" column="15" lean-forward="false" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+                  <folding>
+                    <element signature="e#5614#7173#0" expanded="false" />
+                    <element signature="e#7221#9045#0" expanded="false" />
+                    <element signature="e#9072#10618#0" expanded="false" />
+                    <element signature="e#10656#11148#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -57,34 +99,9 @@
           <file leaf-file-name="losses.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/losses.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="486">
-                  <caret line="29" column="18" lean-forward="true" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+                <state relative-caret-position="20">
+                  <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
                   <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="eval.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/eval.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="87">
-                  <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#167#190#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="mobilenet.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Nets/mobilenet.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1226">
-                  <caret line="203" column="31" lean-forward="true" selection-start-line="203" selection-start-column="31" selection-end-line="203" selection-end-column="31" />
-                  <folding>
-                    <element signature="e#171#194#0" expanded="true" />
-                    <element signature="e#7550#7976#1" expanded="false" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -92,72 +109,23 @@
         </leaf>
       </split-first>
       <split-second>
-        <splitter split-orientation="vertical" split-proportion="0.2867012">
-          <split-first>
-            <leaf>
-              <file leaf-file-name="EvalByAUC.py" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/../models/research/slim/EvalByAUC.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="284">
-                      <caret line="51" column="45" lean-forward="true" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="45" />
-                      <folding>
-                        <element signature="e#172#195#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="mobilenet_v1.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/Nets/mobilenet_v1.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="192">
-                      <caret line="34" column="80" lean-forward="false" selection-start-line="34" selection-start-column="80" selection-end-line="34" selection-end-column="80" />
-                      <folding>
-                        <element signature="e#6397#6435#0" expanded="true" />
-                        <element signature="e#19917#20343#1" expanded="false" />
-                        <element signature="e#20368#20509#0" expanded="false" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="Config.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/Nets/Config.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="240">
-                      <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="nets_factory.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/../models/research/slim/nets/nets_factory.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="1126">
-                      <caret line="136" column="14" lean-forward="false" selection-start-line="136" selection-start-column="14" selection-end-line="136" selection-end-column="14" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-first>
-          <split-second>
-            <leaf>
-              <file leaf-file-name="train.py" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/train.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="218">
-                      <caret line="376" column="51" lean-forward="true" selection-start-line="376" selection-start-column="8" selection-end-line="376" selection-end-column="51" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-            </leaf>
-          </split-second>
-        </splitter>
+        <leaf>
+          <file leaf-file-name="train_mobile.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/train_mobile.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-1705">
+                  <caret line="339" column="105" lean-forward="false" selection-start-line="339" selection-start-column="94" selection-end-line="339" selection-end-column="105" />
+                  <folding>
+                    <element signature="e#5614#7173#0" expanded="false" />
+                    <element signature="e#7221#9045#0" expanded="false" />
+                    <element signature="e#9072#10618#0" expanded="false" />
+                    <element signature="e#10656#11148#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
       </split-second>
     </splitter>
   </component>
@@ -174,6 +142,7 @@
       <find>sync_replicas</find>
       <find>train_dir</find>
       <find>tf_global_step</find>
+      <find>ckpt_dir</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -191,13 +160,18 @@
         <option value="$PROJECT_DIR$/Nets/__init__.py" />
         <option value="$USER_HOME$/anaconda3/envs/python35/lib/python3.5/site-packages/tensorflow/contrib/losses/python/losses/loss_ops.py" />
         <option value="$PROJECT_DIR$/../model_new/models/research/slim/train_image_classifier.py" />
-        <option value="$PROJECT_DIR$/Preprocessing/Preprocessing.py" />
-        <option value="$PROJECT_DIR$/Nets/Config.py" />
-        <option value="$PROJECT_DIR$/Nets/mobilenet.py" />
         <option value="$PROJECT_DIR$/Nets/mobilenet_v1.py" />
         <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/losses.py" />
+        <option value="$PROJECT_DIR$/Nets/Config.py" />
+        <option value="$PROJECT_DIR$/Preprocessing/Preprocessing.py" />
         <option value="$PROJECT_DIR$/eval.py" />
+        <option value="$PROJECT_DIR$/prepare_data.py" />
+        <option value="$PROJECT_DIR$/../GuidewirePreprocess/GuidewirePreprocessing.py" />
+        <option value="$PROJECT_DIR$/Metric.py" />
+        <option value="$PROJECT_DIR$/Inference.py" />
+        <option value="$PROJECT_DIR$/train_mobile.py" />
+        <option value="$PROJECT_DIR$/Nets/mobilenet.py" />
       </list>
     </option>
   </component>
@@ -265,14 +239,14 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../models/research/slim/EvalByAUC.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../GuidewirePreprocess/GuidewirePreprocessing.py" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/Nets" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Nets" />
       <recent name="$PROJECT_DIR$/Datasets" />
     </key>
   </component>
@@ -288,7 +262,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.eval">
+  <component name="RunManager" selected="Python.train_mobile">
+    <configuration name="Inference" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Unet" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Inference.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="eval" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -343,36 +335,38 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="unet" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="train_mobile" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Nets" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Unet" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Nets/unet.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_mobile.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Python.unet" />
-      <item index="1" class="java.lang.String" itemvalue="Python.train" />
-      <item index="2" class="java.lang.String" itemvalue="Python.mobilenet" />
-      <item index="3" class="java.lang.String" itemvalue="Python.eval" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Python.train" />
+      <item index="1" class="java.lang.String" itemvalue="Python.mobilenet" />
+      <item index="2" class="java.lang.String" itemvalue="Python.eval" />
+      <item index="3" class="java.lang.String" itemvalue="Python.train_mobile" />
+      <item index="4" class="java.lang.String" itemvalue="Python.Inference" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.eval" />
-        <item index="1" class="java.lang.String" itemvalue="Python.train" />
-        <item index="2" class="java.lang.String" itemvalue="Python.mobilenet" />
-        <item index="3" class="java.lang.String" itemvalue="Python.unet" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.train_mobile" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Inference" />
+        <item index="2" class="java.lang.String" itemvalue="Python.eval" />
+        <item index="3" class="java.lang.String" itemvalue="Python.mobilenet" />
+        <item index="4" class="java.lang.String" itemvalue="Python.train" />
       </list>
     </recent_temporary>
   </component>
@@ -393,25 +387,26 @@
     <frame x="-1" y="24" width="1922" height="1033" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18836713" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4375" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3405467" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43735763" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48974943" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18836713" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6571754" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47494304" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Concurrent Activities Diagram" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -430,8 +425,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Nets/mobilenet.py</url>
-          <line>210</line>
-          <option name="timeStamp" value="17" />
+          <line>262</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Metric.py</url>
+          <line>78</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -441,7 +441,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="20" />
+      <option name="time" value="38" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -487,7 +487,7 @@
         <state relative-caret-position="360">
           <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
-            <element signature="e#170#193#0" expanded="true" />
+            <element signature="e#170#193#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -505,16 +505,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Datasets/build_guidewire_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#183#194#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -538,14 +528,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/envs/python35/lib/python3.5/site-packages/tensorflow/python/platform/flags.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -614,42 +596,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Datasets/build_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nets/Config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="38" lean-forward="false" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deployment/model_deploy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Nets/mobilenet_v1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="34" column="80" lean-forward="false" selection-start-line="34" selection-start-column="80" selection-end-line="34" selection-end-column="80" />
-          <folding>
-            <element signature="e#6397#6435#0" expanded="true" />
-            <element signature="e#19917#20343#1" expanded="false" />
-            <element signature="e#20368#20509#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../model_new/models/research/slim/train_image_classifier.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
@@ -664,81 +610,233 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Preprocessing/Preprocessing.py">
+    <entry file="file://$PROJECT_DIR$/../models/research/slim/EvalByAUC.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="62" column="34" lean-forward="false" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
+        <state relative-caret-position="284">
+          <caret line="51" column="45" lean-forward="false" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="45" />
           <folding>
-            <element signature="e#175#198#0" expanded="true" />
-            <element signature="e#2864#4299#0" expanded="false" />
-            <element signature="e#2864#3724#1" expanded="false" />
+            <element signature="e#172#195#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Nets/mobilenet.py">
+    <entry file="file://$PROJECT_DIR$/../models/research/slim/nets/mobilenet_v1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1226">
-          <caret line="203" column="31" lean-forward="true" selection-start-line="203" selection-start-column="31" selection-end-line="203" selection-end-column="31" />
-          <folding>
-            <element signature="e#171#194#0" expanded="true" />
-            <element signature="e#7550#7976#1" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/losses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="29" column="18" lean-forward="true" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+        <state relative-caret-position="580">
+          <caret line="92" column="31" lean-forward="false" selection-start-line="92" selection-start-column="12" selection-end-line="92" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Nets/unet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="15" column="23" lean-forward="false" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="23" />
-          <folding>
-            <element signature="e#170#193#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="266">
+          <caret line="29" column="91" lean-forward="false" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="91" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Datasets/SegmentationDataset.py">
+    <entry file="file://$USER_HOME$/anaconda3/envs/python35/lib/python3.5/site-packages/tensorflow/contrib/framework/python/ops/arg_scope.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="81" column="12" lean-forward="false" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="12" />
-          <folding>
-            <element signature="e#2031#2049#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../models/research/slim/EvalByAUC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="51" column="45" lean-forward="true" selection-start-line="51" selection-start-column="4" selection-end-line="51" selection-end-column="45" />
-          <folding>
-            <element signature="e#172#195#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="376" column="51" lean-forward="true" selection-start-line="376" selection-start-column="8" selection-end-line="376" selection-end-column="51" />
+        <state relative-caret-position="113">
+          <caret line="180" column="0" lean-forward="false" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/eval.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+        <state relative-caret-position="180">
+          <caret line="57" column="8" lean-forward="false" selection-start-line="57" selection-start-column="8" selection-end-line="58" selection-end-column="39" />
           <folding>
-            <element signature="e#167#190#0" expanded="true" />
+            <element signature="e#167#190#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datasets/build_guidewire_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+          <folding>
+            <element signature="e#183#194#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datasets/build_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="143" column="22" lean-forward="false" selection-start-line="143" selection-start-column="6" selection-end-line="143" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Preprocessing/Preprocessing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="706">
+          <caret line="249" column="0" lean-forward="false" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
+          <folding>
+            <element signature="e#175#198#0" expanded="false" />
+            <element signature="e#401#2465#0" expanded="false" />
+            <element signature="e#2516#3951#0" expanded="false" />
+            <element signature="e#2516#3376#1" expanded="false" />
+            <element signature="e#3993#4325#0" expanded="false" />
+            <element signature="e#4382#4990#0" expanded="false" />
+            <element signature="e#5067#7557#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Metric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="85" column="21" lean-forward="true" selection-start-line="85" selection-start-column="21" selection-end-line="85" selection-end-column="21" />
+          <folding>
+            <element signature="e#168#186#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Datasets/SegmentationDataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="150" column="19" lean-forward="false" selection-start-line="150" selection-start-column="9" selection-end-line="150" selection-end-column="19" />
+          <folding>
+            <element signature="e#2031#2049#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/prepare_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="947" column="29" lean-forward="false" selection-start-line="947" selection-start-column="17" selection-end-line="947" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#10#0" expanded="false" />
+            <element signature="e#575#1221#0" expanded="false" />
+            <element signature="e#1272#1429#0" expanded="false" />
+            <element signature="e#1478#2345#0" expanded="false" />
+            <element signature="e#2374#4181#0" expanded="false" />
+            <element signature="e#4223#6550#0" expanded="false" />
+            <element signature="e#6594#6966#0" expanded="false" />
+            <element signature="e#7018#7085#0" expanded="false" />
+            <element signature="e#7120#8095#0" expanded="false" />
+            <element signature="e#8206#9198#0" expanded="false" />
+            <element signature="e#9234#9420#0" expanded="false" />
+            <element signature="e#9450#10764#0" expanded="false" />
+            <element signature="e#10783#11190#0" expanded="false" />
+            <element signature="e#11212#11891#0" expanded="false" />
+            <element signature="e#11925#13078#0" expanded="false" />
+            <element signature="e#13148#13973#0" expanded="false" />
+            <element signature="e#14003#14443#0" expanded="false" />
+            <element signature="e#14479#15625#0" expanded="false" />
+            <element signature="e#15656#18702#0" expanded="false" />
+            <element signature="e#18739#21151#0" expanded="false" />
+            <element signature="e#21177#23455#0" expanded="false" />
+            <element signature="e#23501#25615#0" expanded="false" />
+            <element signature="e#25794#27181#0" expanded="false" />
+            <element signature="e#27204#28257#0" expanded="false" />
+            <element signature="e#28282#30638#0" expanded="false" />
+            <element signature="e#31420#31884#0" expanded="false" />
+            <element signature="e#31927#33162#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="686">
+          <caret line="444" column="0" lean-forward="false" selection-start-line="444" selection-start-column="0" selection-end-line="445" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nets/Config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nets/mobilenet_v1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5648">
+          <caret line="34" column="80" lean-forward="false" selection-start-line="34" selection-start-column="80" selection-end-line="34" selection-end-column="80" />
+          <folding>
+            <element signature="e#6397#6435#0" expanded="false" />
+            <element signature="e#19917#20343#1" expanded="false" />
+            <element signature="e#20368#20509#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../GuidewirePreprocess/GuidewirePreprocessing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="133" column="25" lean-forward="false" selection-start-line="133" selection-start-column="25" selection-end-line="133" selection-end-column="25" />
+          <folding>
+            <element signature="e#257#266#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deployment/model_deploy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="187" column="38" lean-forward="false" selection-start-line="187" selection-start-column="38" selection-end-line="187" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/python35/lib/python3.5/site-packages/tensorflow/python/platform/flags.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/losses.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Inference.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1092">
+          <caret line="10" column="39" lean-forward="false" selection-start-line="10" selection-start-column="39" selection-end-line="10" selection-end-column="39" />
+          <folding>
+            <element signature="e#172#195#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_mobile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="27" column="15" lean-forward="false" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+          <folding>
+            <element signature="e#5614#7173#0" expanded="false" />
+            <element signature="e#7221#9045#0" expanded="false" />
+            <element signature="e#9072#10618#0" expanded="false" />
+            <element signature="e#10656#11148#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Nets/mobilenet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="344" column="69" lean-forward="false" selection-start-line="344" selection-start-column="69" selection-end-line="344" selection-end-column="69" />
+          <folding>
+            <element signature="e#171#194#0" expanded="true" />
+            <element signature="e#9099#9525#1" expanded="false" />
+            <element signature="e#10544#10581#0" expanded="false" />
           </folding>
         </state>
       </provider>

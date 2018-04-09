@@ -8,6 +8,8 @@
 # @profile :
 
 class Config():
-    def __init__(self, weight_decay=0.0004, is_training=True):
+    def __init__(self, weight_decay=0.0004, is_training=True, max_stride=8):
         self.weight_decay = weight_decay
         self.is_training = is_training
+        # max_stride means ratio between original image size and the shape of output of last layer in encoder
+        self.max_stride = max_stride

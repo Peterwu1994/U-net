@@ -1,41 +1,25 @@
 #!/usr/bin/env python
-
 # -*- coding: utf-8 -*-
-# @Time    : 18-4-8 下午9:43
+# @Time    : 18-4-3 下午4:25
 # @Author  : Yu-dong Wu
-# @Site    : 
-# @File    : train_mobile.py.py
+# @Site    :
+# @File    : train.py
 # @Software: PyCharm
 # @profile :
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 import tensorflow as tf
 from deployment import model_deploy
 from Datasets.SegmentationDataset import get_dataset
-from Nets.mobilenet_v1 import MobileNetSeg
-from Preprocessing.Preprocessing import preprocess_image_and_label
+from Nets.unet import Unet
+from Preprocessing.Preprocessing import preprocess_image_and_label_Simple
 from Config.Config import Config
 from losses import weighted_softmax_loss
 
 slim = tf.contrib.slim
 
-train_dir = '/raid/wuyudong/Models/DeeplabGuidewire/Mobilenet/Train/Stride32NewTrainData_1'
-ckpt_path = '/raid/wuyudong/Models/PreTrainedModels/mobile_1/mobilenet_v1_1.0_224.ckpt'
-dataset_dir = '/home/wuyudong/Project/ImageData/GuideWire/Image/NewTrain.tfrecord'
-learning_rate = 0.01
-batch_size = 4
-network_fn = MobileNetSeg
-preprocess_fn = preprocess_image_and_label
-max_stride = 32
 
-print('***************************************')
-print('train_dir: %s' % train_dir)
-print('learning_rate: %f' % learning_rate)
-print('batch_size: %d' % batch_size)
-print('%s\t%s' % (network_fn.__name__, preprocess_fn.__name__))
-print('***************************************')
-
-tf.app.flags.DEFINE_string('train_dir', train_dir,
+tf.app.flags.DEFINE_string('train_dir', '/raid/wuyudong/Models/DeeplabGuidewire/test',
                            'Directory where checkpoints and event logs are written to.')
 
 tf.app.flags.DEFINE_integer(
@@ -43,11 +27,11 @@ tf.app.flags.DEFINE_integer(
     'The frequency with which logs are print.')
 
 tf.app.flags.DEFINE_integer(
-    'save_summaries_secs', 180,
+    'save_summaries_secs', 600,
     'The frequency with which summaries are saved, in seconds.')
 
 tf.app.flags.DEFINE_integer(
-    'save_interval_secs', 400,
+    'save_interval_secs', 600,
     'The frequency with which the model is saved, in seconds.')
 
 #######################
@@ -60,7 +44,7 @@ tf.app.flags.DEFINE_string(
     'Specifies how the learning rate is decayed. One of "fixed", "exponential",'
     ' or "polynomial"')
 
-tf.app.flags.DEFINE_float('learning_rate', learning_rate, 'Initial learning rate.')
+tf.app.flags.DEFINE_float('learning_rate', 0.001, 'Initial learning rate.')
 
 tf.app.flags.DEFINE_float(
     'end_learning_rate', 0.0001,
@@ -86,7 +70,7 @@ tf.app.flags.DEFINE_float(
     'weight_decay', 0.00004, 'The weight decay on the model weights.')
 
 tf.app.flags.DEFINE_string(
-    'optimizer', 'adam',
+    'optimizer', 'rmsprop',
     'The name of the optimizer, one of "adadelta", "adagrad", "adam",'
     '"ftrl", "momentum", "sgd" or "rmsprop".')
 
@@ -133,7 +117,7 @@ tf.app.flags.DEFINE_float('rmsprop_decay', 0.9, 'Decay term for RMSProp.')
 #####################
 
 tf.app.flags.DEFINE_string(
-    'checkpoint_path', ckpt_path,
+    'checkpoint_path', None,
     'The path to a checkpoint from which to fine-tune.')
 
 tf.app.flags.DEFINE_string(
@@ -157,7 +141,7 @@ tf.app.flags.DEFINE_string(
     'dataset_split_name', 'train', 'The name of the train/test split.')
 
 tf.app.flags.DEFINE_string(
-    'dataset_dir', dataset_dir,
+    'dataset_dir', '/home/wuyudong/Project/ImageData/GuideWire/Image/Train.tfrecord',
     'The directory where the dataset files are stored.')
 
 tf.app.flags.DEFINE_string(
@@ -169,7 +153,7 @@ tf.app.flags.DEFINE_integer(
 tf.app.flags.DEFINE_integer(
     'train_image_size', 512, 'Train image size')
 
-tf.app.flags.DEFINE_integer('max_number_of_steps', 50000,
+tf.app.flags.DEFINE_integer('max_number_of_steps', None,
                             'The maximum number of training steps.')
 
 FLAGS = tf.app.flags.FLAGS
@@ -339,6 +323,8 @@ def main(_):
             global_step = slim.create_global_step()
         # dataset
         dataset = get_dataset(dataset_name='guidewire', split_name='train', dataset_dir=FLAGS.dataset_dir)
+        network_fn = Unet
+        preprocess_fn = preprocess_image_and_label_Simple
 
         with tf.device(deploy_config.inputs_device()):
             provider = slim.dataset_data_provider.DatasetDataProvider(
@@ -359,7 +345,7 @@ def main(_):
 
 
         def clone_fn(batch_queue):
-            network_config = Config(weight_decay=FLAGS.weight_decay, max_stride=max_stride)
+            network_config = Config(weight_decay=FLAGS.weight_decay)
             images, labels = batch_queue.dequeue()
 
             logits, endpoints = network_fn(images, network_config)
@@ -440,7 +426,6 @@ def main(_):
         summary_op = tf.summary.merge(list(summaries), name='summary_op')
         gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=1.0, allow_growth=True)
         config = tf.ConfigProto(gpu_options=gpu_options, log_device_placement=False)
-        saver = tf.train.Saver(tf.global_variables(), max_to_keep=40)
         ###########################
         # Kicks off the training. #
         ###########################
@@ -456,7 +441,6 @@ def main(_):
             save_summaries_secs=FLAGS.save_summaries_secs,
             save_interval_secs=FLAGS.save_interval_secs,
             session_config=config,
-            saver=saver,
             sync_optimizer=None)
 
 if __name__ == '__main__':

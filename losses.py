@@ -18,7 +18,7 @@ def dice_loss(logits, labels, epsilon=1e-7, ratio=1):
     :return:
     '''
     logits = tf.nn.softmax(logits)
-    logits = logits[:, 1]
+    logits = tf.expand_dims(logits[:,:,:, 1], axis=-1)
     labels = tf.cast(labels, dtype=tf.float32)
     dl = -2.0 * (tf.reduce_sum(labels * logits) + epsilon) / (tf.reduce_sum(logits) + tf.reduce_sum(labels))
     return dl * ratio
@@ -39,3 +39,17 @@ def weighted_softmax_loss(logits, labels, weight_ratio=(1, 400)):
     weights = tf.reduce_sum(class_weights * labels, axis=1)
     loss = tf.nn.softmax_cross_entropy_with_logits(labels=labels, logits=logits)
     return tf.reduce_mean(loss * weights)
+
+
+def get_seg_loss_func(func_name):
+    """
+    return loss func according to config
+    :param config:
+    :return:
+    """
+    if func_name == 'dice':
+        return dice_loss
+    elif func_name =='weighted_softmax':
+        return weighted_softmax_loss
+    else:
+        raise Exception('invalid loss func %s' % func_name)

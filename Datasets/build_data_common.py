@@ -31,6 +31,7 @@ The Example proto contains the following fields:
 """
 import collections
 import tensorflow as tf
+import os
 
 FLAGS = tf.app.flags.FLAGS
 
@@ -152,3 +153,35 @@ def image_seg_to_tfexample(image_data, filename, height, width, seg_data):
       'image/segmentation/class/format': _bytes_list_feature(
           str.encode(FLAGS.label_format)),
   }))
+
+
+def FindAllFiles(src, suffixs=None, sort=True, abspath=True):
+    """find all *.suffix files in src,
+        suffixs need to be a list
+        abspath: whether return abs path or not
+    """
+    if not isinstance(suffixs, (set, list)):
+        print('suffixs need to be set, list or None')
+        return []
+
+    all_files = []
+    for root, sub_dirs, files in os.walk(src):
+        files = [os.path.join(root, i) for i in files]
+        all_files += files
+
+    final_files = []
+    if suffixs is not None:
+        for s in suffixs:
+            final_files += [i for i in all_files if i.endswith(s)]
+    else:
+        final_files = all_files
+
+    final_files = list(set(final_files))
+
+    if sort:
+        final_files.sort()
+
+    if not abspath:
+        final_files = [os.path.relpath(i, src) for i in final_files]
+
+    return final_files

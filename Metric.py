@@ -11,7 +11,8 @@ from scipy import spatial
 import skimage
 from skimage import io, morphology, img_as_bool
 from collections import namedtuple
-import os
+import cv2
+from multiprocessing.dummy import Pool as ThreadPool
 MetricResults = namedtuple('MetricResults', ['dist_mean', 'dist_std', 'dist_median',
                                              'false', 'missing', 'F1'])
 
@@ -37,13 +38,42 @@ def distance_left_to_right(left_label, right_label):
     return distances
 
 
-def DistancesFromLeftToRightsMultis(left, right, skeletonize=True):
+def DistancesFromLeftToRightsMultis(left, right, skeletonize=True, closeOp=True):
     """
     calculate min distances from left to right use KDtree
     :param left: [n, h, w, 1]
     :param right: [n, h, w, 1]
     :return: [[]*n]
     """
+    # def DistCallBack(p):
+    #     l, r, sk, co = p
+    #     if sk:
+    #         l = Skeletonize(np.squeeze(left[i]))
+    #         r = Skeletonize(np.squeeze(right[i]))
+    #     else:
+    #         l = np.squeeze(left[i])
+    #         r = np.squeeze(right[i])
+    #
+    #     if co:
+    #         l = CloseOperator(l)
+    #         r = CloseOperator(r)
+    #     if len(np.unique(l)) < 2 or len(np.unique(r)) < 2:
+    #         print('Oop nothing in preds')
+    #         return None, None
+    #     return distance_left_to_right(l, r), distance_left_to_right(r, l)
+    #
+    # num = left.shape[0]
+    # pool = ThreadPool(num)
+    # paras = []
+    # for i in range(num):
+    #     paras.append([left[i], right[i], skeletonize, closeOp])
+    # rst = pool.map(DistCallBack, paras)
+    # distances_l_r, distances_r_l = list(zip(*rst))
+    # distances_r_l = list(distances_r_l)
+    # distances_l_r = list(distances_l_r)
+    # if None in distances_l_r:
+    #     distances_r_l.remove(None)
+    #     distances_l_r.remove(None)
     num = left.shape[0]
     distances_l_r = []
     distances_r_l = []
@@ -54,6 +84,13 @@ def DistancesFromLeftToRightsMultis(left, right, skeletonize=True):
         else:
             l = np.squeeze(left[i])
             r = np.squeeze(right[i])
+
+        if closeOp:
+            l = CloseOperator(l)
+            r = CloseOperator(r)
+        if len(np.unique(l)) < 2 or len(np.unique(r)) < 2:
+            print('Oop nothing in preds')
+            continue
         distances_l_r.append(distance_left_to_right(l, r))
         distances_r_l.append(distance_left_to_right(r, l))
 
@@ -94,3 +131,10 @@ def DistancesToMetrics(distances_l_r, distances_r_l):
 
     return MetricResults(dist_means.mean(), dist_means.std(), np.median(dist_means),
                          false_percent.mean(), miss_percent.mean(), F1.mean())
+
+
+def CloseOperator(img):
+    """img in uint8"""
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))
+    img_close = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+    return img_close

@@ -10,13 +10,12 @@ import glob
 import math
 import os.path
 import sys
-import build_data
+import build_data_common
 import tensorflow as tf
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 from tqdm import tqdm
+from build_data_common import FindAllFiles
 
-sys.path.append('/home/wuyudong/Project/scripts/single_files/')
-from UtilsSelf import FindAllFiles
 
 
 def _convert_dataset(img_dir, label_dir, record_path):
@@ -25,10 +24,10 @@ def _convert_dataset(img_dir, label_dir, record_path):
     :param img_dir:
     :return:
     """
-    all_image_paths = FindAllFiles(img_dir, ['png'])
+    all_image_paths = FindAllFiles(img_dir, ['png'], sort=True)
 
-    image_reader = build_data.ImageReader('jpeg', channels=3)
-    label_reader = build_data.ImageReader('png', channels=1)
+    image_reader = build_data_common.ImageReader('png', channels=3)
+    label_reader = build_data_common.ImageReader('png', channels=1)
 
     if not os.path.isdir(os.path.dirname(record_path)):
         os.makedirs(os.path.dirname(record_path))
@@ -50,11 +49,11 @@ def _convert_dataset(img_dir, label_dir, record_path):
                 raise RuntimeError('Shape mismatched between image and label.')
 
             # Convert to tf example.
-            example = build_data.image_seg_to_tfexample(image_data, str.encode(img_path), height, width, seg_data)
+            example = build_data_common.image_seg_to_tfexample(image_data, str.encode(img_path), height, width, seg_data)
             tfrecord_writer.write(example.SerializeToString())
 
 
 if __name__ == '__main__':
-    _convert_dataset(img_dir='/home/wuyudong/Project/ImageData/GuideWire/Image/TrainSequences',
-                     label_dir='/home/wuyudong/Project/ImageData/GuideWire/Label/TrainSequences_binary',
-                     record_path='/home/wuyudong/Project/ImageData/GuideWire/Image/Train.tfrecord')
+    _convert_dataset(img_dir='/home/wuyudong/Project/ImageData/GuideWire/Image_debug/Test',
+                     label_dir='/home/wuyudong/Project/ImageData/GuideWire/Label_debug/Test',
+                     record_path='/home/wuyudong/Project/ImageData/GuideWire/Image_debug/Test.tfrecord')

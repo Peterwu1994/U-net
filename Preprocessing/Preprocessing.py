@@ -14,7 +14,7 @@ GT_COLOR = [0, 255, 0]
 PRED_COLOR = [255, 0, 0]
 
 
-def preprocess_image_and_label_Simple(image, label, size, is_training=True):
+def preprocess_image_and_label_Simple(image, label, size, is_training=True, num_classes=2):
     """Preprocesses the image and label.
 
     Args:
@@ -53,15 +53,32 @@ def preprocess_image_and_label_Simple(image, label, size, is_training=True):
 
     if label is not None:
         label = tf.cast(label, tf.int32)
+    if isinstance(size, int):
+        size = [size, size]
+    assert isinstance(size, list) or isinstance(size, tuple), 'size need to be list or tuple, now is %s' % type(size)
+    image = tf.image.resize_images(image, size=size, method=tf.image.ResizeMethod.BILINEAR)
+    label = tf.image.resize_images(label, size=size, method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 
-    image = tf.image.resize_images(image, size=[size, size], method=tf.image.ResizeMethod.BILINEAR)
-    label = tf.image.resize_images(label, size=[size, size], method=tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+    if num_classes == 2:
+        label = binary_label(label)
 
     if is_training:
         # Randomly left-right flip the image and label.
         image, label, _ = flip_dim([image, label], 0.5, dim=1)
 
     return image, label
+
+
+def binary_label(label):
+    """
+    convert label to binary for binary classification
+    :param label:
+    :param num_classes:
+    :return:
+    """
+    label = tf.where(tf.equal(label, 0), tf.zeros_like(label), tf.ones_like(label))
+    return label
+
 
 
 def flip_dim(tensor_list, prob=0.5, dim=1):
